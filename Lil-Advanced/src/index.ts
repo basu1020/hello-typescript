@@ -8,7 +8,7 @@ anArray.push(2)
 console.log(anArray)
 
 let foo = (val:number): boolean => {
-    if (val > 5){
+    if (val > 5) {
         return true
     }
     else{
@@ -18,18 +18,59 @@ let foo = (val:number): boolean => {
 
 // Classes
 
+// class User {
+//     email: string
+//     name: string
+//     private readonly city: string = "Patna"
+//     constructor(email: string, name: string) {
+//         this.email = email
+//         this.name = name
+//     }
+// }
+
 class User {
-    email: string
-    name: string
-    city: string = "Patna"
-    constructor(email: string, name: string) {
-        this.email = email
-        this.name = name
+
+    private _courseCount = 1
+    protected _daysActive = 2
+
+    readonly city: string = "Patna"
+    constructor(
+        public email: string,
+        public name: string,
+        private userId: number) 
+        {}
+    // getters and setters
+
+    private deleteSomething() {
+        console.log("token deleted")
+    }
+
+    get getAppleEmail(): string {
+        return this.email;
+    }
+    get getName(): string{
+        return this.name;
+    }
+
+    get CourseCount(): number {
+        return this._courseCount
+    }
+
+    set setCourseCount(val:number) {
+        if (val <= 1) {
+            throw new Error("Course count should be more than 1")
+        }
+        this._courseCount = val
     }
 }
 
-const basuki = new User("basuki@gmail.com", "basuki")
-console.log(basuki.email, basuki.name, basuki.city)
+class InheritedUser extends User {
+    set changeDaysActive(val: number){
+        this._daysActive += val
+     }
+}
 
-let nums: number[] = [10,20,30]
-console.log(nums.slice(0, 1))
+const basuki = new User("basuki@gmail.com", "basuki", 10)
+console.log(basuki.email, basuki.name)
+
+
